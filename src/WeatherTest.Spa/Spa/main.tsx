@@ -1,13 +1,15 @@
-﻿import './css/site.css';
+﻿import './css/main.css';
 import 'bootstrap';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { browserHistory, Router } from 'react-router';
+import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
+import routes from './routes';
 import storeConfig from './storeConfig';
 import { ApplicationState }  from './store';
-import routes from './routes';
+
+
 
 const initialState = (window as any).initialReduxState as ApplicationState;
 const store = storeConfig(initialState);

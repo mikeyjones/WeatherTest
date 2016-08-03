@@ -33,7 +33,7 @@
   "publishOptions": {
     "include": [
       "appsettings.json",
-      "ClientApp",
+      "Spa",
       "node_modules",
       "typings",
       "Views",

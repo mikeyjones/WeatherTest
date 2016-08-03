@@ -5,7 +5,7 @@ var merge = require('extendify')({ isDeep: true, arrays: 'concat' });
 var devConfig = require('./webpack.config.dev');
 var prodConfig = require('./webpack.config.prod');
 var isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
-var extractCSS = new ExtractTextPlugin('site.css');
+var extractCSS = new ExtractTextPlugin('main.css');
 
 module.exports = merge({
     resolve: {
@@ -13,8 +13,8 @@ module.exports = merge({
     },
     module: {
         loaders: [
-            { test: /\.ts(x?)$/, include: /ClientApp/, loader: 'babel-loader' },
-            { test: /\.ts(x?)$/, include: /ClientApp/, loader: 'ts-loader?silent=true' },
+            { test: /\.ts(x?)$/, include: /Spa/, loader: 'babel-loader' },
+            { test: /\.ts(x?)$/, include: /Spa/, loader: 'ts-loader?silent=true' },
             { test: /\.css/, loader: extractCSS.extract(['css']) }
         ]
     },
