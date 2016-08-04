@@ -57,13 +57,13 @@ namespace WeatherTest.Spa
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
-               
+                routes.MapSpaFallbackRoute(
+                    name: "spa-failover",
+                    defaults: new { controller = "Home", action = "Index" });
+
             });
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            
         }
     }
 }
