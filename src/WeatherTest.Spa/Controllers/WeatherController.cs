@@ -14,16 +14,10 @@ namespace WeatherTest.Spa.Controllers
         [HttpGet("{location}")]
         public WeatherData Index(string location)
         {
-            //WebDataService temp = new WebDataService();
-            //temp.GetData(location);
+            WebDataService temp = new WebDataService(new DownloadStringService());
+            return temp.GetData(location);
 
-            return new WeatherData {
-                TemperatureC = 45.4,
-                TemperatureF = 56.3,
-                Location = location,
-                WindSpeedKph = 23.2,
-                WindSpeedMph = 24.9
-            };
+           
         }
     }
 

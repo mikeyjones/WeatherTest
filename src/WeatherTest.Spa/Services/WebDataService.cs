@@ -18,10 +18,12 @@ namespace WeatherTest.Spa.Services
             this.downloadService = downloadService;
         }
 
-        public void GetData(string location)
+        public WeatherData GetData(string location)
         {
-            GetDataFromAccu(location);
-            GetDataFromBbc(location);
+            return AvgerageWeatherData(
+                ConvertAccToStandardResult(GetDataFromAccu(location)),
+                ConvertBbcToStandardResult(GetDataFromBbc(location))
+                );
         }
 
         private AccWeatherResult GetDataFromAccu(string location)
@@ -56,6 +58,23 @@ namespace WeatherTest.Spa.Services
                 WindSpeedKph = bbcResult.WindSpeedKph,
                 WindSpeedMph = ConvertDistances.ConvertKilometersToMiles(bbcResult.WindSpeedKph)
             };
+        }
+
+        public WeatherData AvgerageWeatherData(WeatherData dataA, WeatherData dataB)
+        {
+            return new WeatherData
+            {
+                TemperatureC = AverageNumbers(dataA.TemperatureC, dataB.TemperatureC),
+                TemperatureF = AverageNumbers(dataA.TemperatureF, dataB.TemperatureF),
+                Location = dataA.Location,
+                WindSpeedKph = AverageNumbers(dataA.WindSpeedKph, dataB.WindSpeedKph),
+                WindSpeedMph = AverageNumbers(dataA.WindSpeedMph, dataB.WindSpeedMph)
+            };
+        }
+
+        private double AverageNumbers(double a, double b)
+        {
+            return a + b / 2;
         }
     }
 }
