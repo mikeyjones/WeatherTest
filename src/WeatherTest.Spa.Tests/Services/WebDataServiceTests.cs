@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Moq;
 using WeatherTest.Spa.Services;
+using WeatherTest.Spa.Models;
 
 namespace WeatherTest.Spa.Tests.Services
 {
@@ -19,7 +20,7 @@ namespace WeatherTest.Spa.Tests.Services
             var location = "england";
             service.GetData(location);
 
-            downloadService.Verify(d => d.GetData($"http://localhost:60368/{location}"));
+            downloadService.Verify(d => d.GetData<AccWeatherResult>($"http://localhost:60368/{location}"));
         }
 
 
@@ -32,7 +33,7 @@ namespace WeatherTest.Spa.Tests.Services
             var location = "england";
             service.GetData(location);
 
-            downloadService.Verify(d => d.GetData($"http://localhost:60350/Weather/{location}"));
+            downloadService.Verify(d => d.GetData<BbcWeatherResult>($"http://localhost:60350/Weather/{location}"));
         }
     }
 }

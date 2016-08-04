@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+
 
 namespace WeatherTest.Spa.Services
 {
@@ -15,14 +17,14 @@ namespace WeatherTest.Spa.Services
             webClient = new WebClient();
         }
 
-        public string GetData(string url)
+        public T GetData<T>(string url)
         {
-            return webClient.DownloadString(url);
+            return JsonConvert.DeserializeObject<T>(webClient.DownloadString(url));
         }
     }
 
     public interface IDownloadStringService
     {
-        string GetData(string url);
+        T GetData<T>(string url);
     }
 }

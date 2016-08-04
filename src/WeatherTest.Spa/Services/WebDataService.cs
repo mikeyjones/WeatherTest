@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using WeatherTest.Spa.Models;
 
 namespace WeatherTest.Spa.Services
 {
@@ -22,14 +23,14 @@ namespace WeatherTest.Spa.Services
             GetDataFromBbc(location);
         }
 
-        private void GetDataFromAccu(string location)
+        private AccWeatherResult GetDataFromAccu(string location)
         {
-            var json = downloadService.GetData($"http://localhost:60368/{location}");
+            return downloadService.GetData<AccWeatherResult>($"http://localhost:60368/{location}");
         }
 
-        private void GetDataFromBbc(string location)
+        private AccWeatherResult GetDataFromBbc(string location)
         {
-            var json = downloadService.GetData($"http://localhost:60350/Weather/{location}");
+            return downloadService.GetData<BbcWeatherResult>($"http://localhost:60350/Weather/{location}");
         }
     }
 }
