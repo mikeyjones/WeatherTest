@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
+using WeatherTest.Spa.Models;
+using WeatherTest.Spa.Services;
 
 namespace WeatherTest.Spa.Controllers
 {
@@ -13,6 +14,9 @@ namespace WeatherTest.Spa.Controllers
         [HttpGet("{location}")]
         public WeatherData Index(string location)
         {
+            //WebDataService temp = new WebDataService();
+            //temp.GetData(location);
+
             return new WeatherData {
                 TemperatureC = 45.4,
                 TemperatureF = 56.3,
@@ -23,16 +27,5 @@ namespace WeatherTest.Spa.Controllers
         }
     }
 
-    public class WeatherData {
-        public double TemperatureC { get; set; }
-
-        public double TemperatureF { get; set; }
-
-        public string Location { get; set; }
-
-        public double WindSpeedKph { get; set; }
-
-        public double WindSpeedMph { get; set; }
-    }
 
 }
