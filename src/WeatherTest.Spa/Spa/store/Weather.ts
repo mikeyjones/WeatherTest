@@ -1,5 +1,6 @@
 ﻿import { fetch, addTask } from 'domain-task';
 import { typeName, isActionType, Action, Reducer } from 'redux-typed';
+import { browserHistory } from 'react-router';
 import { ActionCreator } from './';
 
 export interface WeatherState {
@@ -51,6 +52,9 @@ export const actionCreators = {
                 .then(response => response.json())
                 .then((data: Weather) => {
                     dispatch(new RecieveWeather(data));
+                })
+                .catch((error) => {
+                    browserHistory.push('/error');
                 });  
             dispatch(new RequestWeather(location));
         }
