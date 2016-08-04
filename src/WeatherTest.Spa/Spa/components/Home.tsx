@@ -13,10 +13,9 @@ class Home extends React.Component<LocationProps, void> {
 
     public render() {
         return <div>
-            <h1>Weather Test</h1>
             <h2>Enter Location: </h2>
             <input onChange={ (event) => this.props.changeLocation(event.target.value) }  />
-            <button onClick={ () => this.props.showData() }>Go!</button>
+            <button onClick={ () => this.props.showData() }><span className="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
         </div>;
     }
 }
