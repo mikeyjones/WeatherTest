@@ -28,7 +28,7 @@ namespace WeatherTest.Spa.Services
             return downloadService.GetData<AccWeatherResult>($"http://localhost:60368/{location}");
         }
 
-        private AccWeatherResult GetDataFromBbc(string location)
+        private BbcWeatherResult GetDataFromBbc(string location)
         {
             return downloadService.GetData<BbcWeatherResult>($"http://localhost:60350/Weather/{location}");
         }
