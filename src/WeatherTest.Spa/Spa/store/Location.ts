@@ -1,4 +1,5 @@
 ﻿import { typeName, isActionType, Action, Reducer } from 'redux-typed';
+import { browserHistory } from 'react-router';
 import { ActionCreator } from './';
 
 export interface LocationState {
@@ -23,16 +24,14 @@ export const actionCreators = {
         }
     },
     showData: (): ActionCreator => (dispatch, getState) => {
-        dispatch(new ShowData());
+        browserHistory.push('/weather/' + getState().location.name);
     }
 };
 
 export const reducer: Reducer<LocationState> = (state, action) => {
     if (isActionType(action, RequestLocation)) {
         return { name: action.location };
-    } else if (isActionType(action, ShowData)) {
-        console.log("show data2 " + state.name);
-    }
+    } 
 
     return state || { name: "" };
 };
