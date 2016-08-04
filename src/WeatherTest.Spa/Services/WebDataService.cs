@@ -44,6 +44,18 @@ namespace WeatherTest.Spa.Services
                 WindSpeedKph = ConvertDistances.ConvertMilesToKilometers(accuResult.WindSpeedMph),
                 WindSpeedMph = accuResult.WindSpeedMph
             };
-        } 
+        }
+
+        public WeatherData ConvertBbcToStandardResult(BbcWeatherResult bbcResult)
+        {
+            return new WeatherData
+            {
+                TemperatureC = bbcResult.TemperatureCelsius,
+                TemperatureF = ConvertTemperatures.ConvertFahrenheitToCelsius(bbcResult.TemperatureCelsius),
+                Location = bbcResult.Location,
+                WindSpeedKph = bbcResult.WindSpeedKph,
+                WindSpeedMph = ConvertDistances.ConvertKilometersToMiles(bbcResult.WindSpeedKph)
+            };
+        }
     }
 }

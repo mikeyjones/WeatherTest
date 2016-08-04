@@ -52,5 +52,22 @@ namespace WeatherTest.Spa.Tests.Services
             Assert.Equal(172.4, result.TemperatureC);
             Assert.InRange<double>(result.WindSpeedKph,72.42,72.43);
         }
+
+        [Fact]
+        public void GivenBbcWeatherDataWebDataServiceShouldConvertToWeatherDataCorrectly()
+        {
+            var downloadService = new Mock<IDownloadStringService>();
+            WebDataService service = new WebDataService(downloadService.Object);
+
+            var result = service.ConvertBbcToStandardResult(new BbcWeatherResult
+            {
+                TemperatureCelsius = 45,
+                Location = "sfbsfbx",
+                WindSpeedKph = 50
+            });
+
+            Assert.InRange<double>(result.TemperatureF, 7.22, 7.23 );
+            Assert.InRange<double>(result.WindSpeedMph, 31.06, 31.07);
+        }
     }
 }
