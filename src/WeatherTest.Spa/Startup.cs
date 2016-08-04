@@ -58,7 +58,7 @@ namespace WeatherTest.Spa
                     template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
-                    name: "spa-failover",
+                    name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
 
             });
