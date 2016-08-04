@@ -20,7 +20,11 @@ class Weather extends React.Component<WeatherProps, void> {
 
     public render() {
         return <div>
-            <h1>Hello, from weather!</h1>
+            {this.props.isLoading ?
+                <h1>Loading Data (Please wait) ....</h1>
+                : <br />
+            }
+            <h1>Aggregated weather for {this.props.location}</h1>
             <p>Temprature</p>
             {this.props.tempInC ?
                 <DataDisplay number={this.props.weather.temperatureC} delimiter="℃" />
@@ -42,7 +46,7 @@ class Weather extends React.Component<WeatherProps, void> {
                     this.props.changeSpeed();
                 } } />
 
-
+        
         </div>;
     }
 }

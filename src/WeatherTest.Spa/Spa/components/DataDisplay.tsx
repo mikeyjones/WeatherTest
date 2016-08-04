@@ -5,7 +5,7 @@ export default class DataDisplay extends React.Component<any, void> {
 
 
     public render() {
-        return <div><span>{this.props.number}</span><span>{this.props.delimiter}</span></div>;
+        return <div><span>{Math.round(this.props.number)}</span><span>{this.props.delimiter}</span></div>;
         
     }
 }

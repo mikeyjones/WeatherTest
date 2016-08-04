@@ -11,6 +11,7 @@ namespace WeatherTest.Spa.Services
 {
     public class WebDataService
     {
+       
         readonly IDownloadStringService downloadService;
 
         public WebDataService(IDownloadStringService downloadService)
@@ -20,10 +21,10 @@ namespace WeatherTest.Spa.Services
 
         public WeatherData GetData(string location)
         {
-            return AvgerageWeatherData(
-                ConvertAccToStandardResult(GetDataFromAccu(location)),
-                ConvertBbcToStandardResult(GetDataFromBbc(location))
-                );
+            var weatherData = new List<WeatherData>();
+            weatherData.Add(ConvertAccToStandardResult(GetDataFromAccu(location)));
+            weatherData.Add(ConvertBbcToStandardResult(GetDataFromBbc(location)));
+            return AvgerageWeatherData(weatherData, location);
         }
 
         private AccWeatherResult GetDataFromAccu(string location)
@@ -38,9 +39,14 @@ namespace WeatherTest.Spa.Services
 
         public WeatherData ConvertAccToStandardResult(AccWeatherResult accuResult)
         {
+            if(accuResult == null)
+            {
+                return new WeatherData();
+            }
+
             return new WeatherData
             {
-                TemperatureC = ConvertTemperatures.ConvertCelsiusToFahrenheit(accuResult.TemperatureFahrenheit),
+                TemperatureC = ConvertTemperatures.ConvertFahrenheitToCelsius(accuResult.TemperatureFahrenheit),
                 TemperatureF = accuResult.TemperatureFahrenheit,
                 Location = accuResult.Where,
                 WindSpeedKph = ConvertDistances.ConvertMilesToKilometers(accuResult.WindSpeedMph),
@@ -50,31 +56,38 @@ namespace WeatherTest.Spa.Services
 
         public WeatherData ConvertBbcToStandardResult(BbcWeatherResult bbcResult)
         {
+            if (bbcResult == null)
+            {
+                return new WeatherData();
+            }
+
             return new WeatherData
             {
                 TemperatureC = bbcResult.TemperatureCelsius,
-                TemperatureF = ConvertTemperatures.ConvertFahrenheitToCelsius(bbcResult.TemperatureCelsius),
+                TemperatureF = ConvertTemperatures.ConvertCelsiusToFahrenheit(bbcResult.TemperatureCelsius),
                 Location = bbcResult.Location,
                 WindSpeedKph = bbcResult.WindSpeedKph,
                 WindSpeedMph = ConvertDistances.ConvertKilometersToMiles(bbcResult.WindSpeedKph)
             };
         }
 
-        public WeatherData AvgerageWeatherData(WeatherData dataA, WeatherData dataB)
+        public WeatherData AvgerageWeatherData(List<WeatherData> data, string location)
         {
+            var avgTempF = data.Select(x => x.TemperatureF).Average();
+            var avgTempC = data.Select(x => x.TemperatureC).Average();
+            var avgWindMph = data.Select(x => x.WindSpeedMph).Average();
+            var avgWindKph = data.Select(x => x.WindSpeedKph).Average();
+
             return new WeatherData
             {
-                TemperatureC = AverageNumbers(dataA.TemperatureC, dataB.TemperatureC),
-                TemperatureF = AverageNumbers(dataA.TemperatureF, dataB.TemperatureF),
-                Location = dataA.Location,
-                WindSpeedKph = AverageNumbers(dataA.WindSpeedKph, dataB.WindSpeedKph),
-                WindSpeedMph = AverageNumbers(dataA.WindSpeedMph, dataB.WindSpeedMph)
+                TemperatureF = avgTempF,
+                TemperatureC = avgTempC,
+                WindSpeedKph = avgWindKph,
+                WindSpeedMph = avgWindMph,
+                Location = location
             };
         }
 
-        private double AverageNumbers(double a, double b)
-        {
-            return a + b / 2;
-        }
+       
     }
 }
