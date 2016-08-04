@@ -7,8 +7,8 @@ namespace WeatherTest.Spa.Models
 {
     public class AccWeatherResult
     {
-        public double TemperatureFahrenheit { get; internal set; }
-        public string Where { get; internal set; }
-        public double WindSpeedMph { get; internal set; }
+        public double TemperatureFahrenheit { get;  set; }
+        public string Where { get;  set; }
+        public double WindSpeedMph { get;  set; }
     }
 }

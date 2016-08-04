@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WeatherTest.Spa.Models;
+using WeatherTest.Spa.Helpers;
 
 namespace WeatherTest.Spa.Services
 {
@@ -32,5 +33,17 @@ namespace WeatherTest.Spa.Services
         {
             return downloadService.GetData<BbcWeatherResult>($"http://localhost:60350/Weather/{location}");
         }
+
+        public WeatherData ConvertAccToStandardResult(AccWeatherResult accuResult)
+        {
+            return new WeatherData
+            {
+                TemperatureC = ConvertTemperatures.ConvertCelsiusToFahrenheit(accuResult.TemperatureFahrenheit),
+                TemperatureF = accuResult.TemperatureFahrenheit,
+                Location = accuResult.Where,
+                WindSpeedKph = ConvertDistances.ConvertMilesToKilometers(accuResult.WindSpeedMph),
+                WindSpeedMph = accuResult.WindSpeedMph
+            };
+        } 
     }
 }

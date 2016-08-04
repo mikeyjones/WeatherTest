@@ -13,7 +13,7 @@ namespace WeatherTest.Spa.Tests.Helpers
         public void Given100FConvertTemperatureShouldReturn37c()
         {
             // Data from Googles converter app 
-            Assert.Equal(37.7777777777778, ConvertTemperatures.ConvertFahrenheitToCelsius(100));
+            Assert.InRange<double>(ConvertTemperatures.ConvertFahrenheitToCelsius(100), 37.77, 37.78);
         }
 
         [Fact]

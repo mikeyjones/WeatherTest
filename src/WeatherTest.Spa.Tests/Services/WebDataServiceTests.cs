@@ -35,5 +35,22 @@ namespace WeatherTest.Spa.Tests.Services
 
             downloadService.Verify(d => d.GetData<BbcWeatherResult>($"http://localhost:60350/Weather/{location}"));
         }
+
+        [Fact]
+        public void GivenAccWeatherDataWebDataServiceShouldConvertToWeatherDataCorrectly()
+        {
+            var downloadService = new Mock<IDownloadStringService>();
+            WebDataService service = new WebDataService(downloadService.Object);
+
+            var result = service.ConvertAccToStandardResult(new AccWeatherResult
+            {
+                TemperatureFahrenheit = 78,
+                Where = "Svsfv",
+                WindSpeedMph = 45
+            });
+
+            Assert.Equal(172.4, result.TemperatureC);
+            Assert.InRange<double>(result.WindSpeedKph,72.42,72.43);
+        }
     }
 }
