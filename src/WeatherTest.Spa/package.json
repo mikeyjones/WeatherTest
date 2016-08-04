@@ -1,5 +1,5 @@
 {
-  "name": "WeatherTest.Spa",
+  "name": "WeatherTestSpa",
   "version": "0.0.1",
   "devDependencies": {
     "aspnet-webpack": "^1.0.6",
@@ -30,6 +30,7 @@
     "react-router": "^2.1.1",
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
+    "redux-form": "^5.3.2",
     "redux-thunk": "^2.0.1",
     "redux-typed": "^1.0.0",
     "webpack-externals-plugin": "^1.0.0"
