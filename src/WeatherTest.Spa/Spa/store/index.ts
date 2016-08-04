@@ -10,7 +10,7 @@ export interface ApplicationState {
 }
 
 export const reducers = {
-    accuWeather: Weather.reducer,
+    weather: Weather.reducer,
     location: Location.reducer
 };
 
