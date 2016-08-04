@@ -5,7 +5,6 @@ import { provide } from 'redux-typed';
 import { Link } from 'react-router';
 import { ApplicationState }  from '../store';
 import * as LocationStore from '../store/Location';
-import * as CounterStore from '../store/Counter';
 
 
 class Home extends React.Component<LocationProps, void> {
