@@ -1,17 +1,16 @@
 ﻿import { ActionCreatorGeneric } from 'redux-typed';
-import * as AccuWeather from './AccuWeather';
+import * as Weather from './Weather';
 import * as Location from './Location';
-import * as Counter from './Counter';
 
 
 export interface ApplicationState {
-    accuWeather: AccuWeather.AccuWeatherState,
+    weather: Weather.WeatherState,
     location: Location.LocationState
     
 }
 
 export const reducers = {
-    accuWeather: AccuWeather.reducer,
+    accuWeather: Weather.reducer,
     location: Location.reducer
 };
 
