@@ -32,6 +32,17 @@ class Weather extends React.Component<WeatherProps, void> {
                 } } />
 
 
+            <p>Wind speed</p>
+            {this.props.speedInMph ?
+                <DataDisplay number={this.props.weather.windSpeedMph} delimiter="MPH" />
+                : <DataDisplay number={this.props.weather.windSpeedKph} delimiter="KPH" /> }
+            <ToggleButton
+                value={ this.props.speedInMph }
+                onToggle={(value) => {
+                    this.props.changeSpeed();
+                } } />
+
+
         </div>;
     }
 }

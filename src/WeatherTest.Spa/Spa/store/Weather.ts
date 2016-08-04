@@ -7,6 +7,7 @@ export interface WeatherState {
     weather: Weather;
     location: string;
     tempInC: boolean;
+    speedInMph: boolean;
 }
 
 export interface Weather {
@@ -36,7 +37,12 @@ class ToggleTempInC extends Action {
 
 }
 
-const defaultState = { isLoading: false, weather: {}, location: '', tempInC: true };
+@typeName("TOGGLE_SPEED_IN_MPH")
+class ToggleSpeedInMph extends Action {
+
+}
+
+const defaultState = { isLoading: false, weather: {}, location: '', tempInC: true, speedInMph: true };
 
 export const actionCreators = {
     requestWeather: (location: string): ActionCreator => (dispatch, getState) => {
@@ -52,21 +58,29 @@ export const actionCreators = {
 
     changeTemp: (): ActionCreator => (dispatch, getState) => {
         dispatch(new ToggleTempInC());
-    }
+    },
+
+    changeSpeed: (): ActionCreator => (dispatch, getState) => {
+        dispatch(new ToggleSpeedInMph());
+    },
 };
 
 export const reducer: Reducer<WeatherState> = (state, action) => {
     if (isActionType(action, RequestWeather)) {
         return {
-            isLoading: true, location: action.location, weather: state.weather, tempInC: state.tempInC
+            isLoading: true, location: action.location, weather: state.weather, tempInC: state.tempInC, speedInMph: state.speedInMph
         };
     } else if (isActionType(action, RecieveWeather)) {
         return {
-            isLoading: false, location: state.location, weather: action.weatherUpdate, tempInC: state.tempInC
+            isLoading: false, location: state.location, weather: action.weatherUpdate, tempInC: state.tempInC, speedInMph: state.speedInMph
         };
     } else if (isActionType(action, ToggleTempInC)) {
         return {
-            isLoading: state.isLoading, location: state.location, weather: state.weather, tempInC: !state.tempInC
+            isLoading: state.isLoading, location: state.location, weather: state.weather, tempInC: !state.tempInC, speedInMph: state.speedInMph
+        };
+    } else if (isActionType(action, ToggleSpeedInMph)) {
+        return {
+            isLoading: state.isLoading, location: state.location, weather: state.weather, tempInC: state.tempInC, speedInMph: !state.speedInMph
         };
     }
 
